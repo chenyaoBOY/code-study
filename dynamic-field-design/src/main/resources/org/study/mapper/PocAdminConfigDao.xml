@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.study.mapper.PocAdminConfigDao">
+  <resultMap id="BaseResultMap" type="org.study.mapper.PocAdminConfig">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="config_type" jdbcType="SMALLINT" property="configType" />
+    <result column="pay_channel" jdbcType="VARCHAR" property="payChannel" />
+    <result column="pay_method" jdbcType="VARCHAR" property="payMethod" />
+    <result column="site_id" jdbcType="VARCHAR" property="siteId" />
+    <result column="site_uid" jdbcType="VARCHAR" property="siteUid" />
+    <result column="operate_name" jdbcType="VARCHAR" property="operateName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="last_update_time" jdbcType="TIMESTAMP" property="lastUpdateTime" />
+    <result column="is_del" jdbcType="BOOLEAN" property="isDel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, config_type, pay_channel, pay_method, site_id, site_uid, operate_name, create_time, 
+    last_update_time, is_del
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from poc_admin_config
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from poc_admin_config
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="org.study.mapper.PocAdminConfig" useGeneratedKeys="true">
+    insert into poc_admin_config (config_type, pay_channel, pay_method, 
+      site_id, site_uid, operate_name, 
+      create_time, last_update_time, is_del
+      )
+    values (#{configType,jdbcType=SMALLINT}, #{payChannel,jdbcType=VARCHAR}, #{payMethod,jdbcType=VARCHAR}, 
+      #{siteId,jdbcType=VARCHAR}, #{siteUid,jdbcType=VARCHAR}, #{operateName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{isDel,jdbcType=BOOLEAN}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="org.study.mapper.PocAdminConfig" useGeneratedKeys="true">
+    insert into poc_admin_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="configType != null">
+        config_type,
+      </if>
+      <if test="payChannel != null">
+        pay_channel,
+      </if>
+      <if test="payMethod != null">
+        pay_method,
+      </if>
+      <if test="siteId != null">
+        site_id,
+      </if>
+      <if test="siteUid != null">
+        site_uid,
+      </if>
+      <if test="operateName != null">
+        operate_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="configType != null">
+        #{configType,jdbcType=SMALLINT},
+      </if>
+      <if test="payChannel != null">
+        #{payChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null">
+        #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteUid != null">
+        #{siteUid,jdbcType=VARCHAR},
+      </if>
+      <if test="operateName != null">
+        #{operateName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=BOOLEAN},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.study.mapper.PocAdminConfig">
+    update poc_admin_config
+    <set>
+      <if test="configType != null">
+        config_type = #{configType,jdbcType=SMALLINT},
+      </if>
+      <if test="payChannel != null">
+        pay_channel = #{payChannel,jdbcType=VARCHAR},
+      </if>
+      <if test="payMethod != null">
+        pay_method = #{payMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="siteId != null">
+        site_id = #{siteId,jdbcType=VARCHAR},
+      </if>
+      <if test="siteUid != null">
+        site_uid = #{siteUid,jdbcType=VARCHAR},
+      </if>
+      <if test="operateName != null">
+        operate_name = #{operateName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateTime != null">
+        last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=BOOLEAN},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.study.mapper.PocAdminConfig">
+    update poc_admin_config
+    set config_type = #{configType,jdbcType=SMALLINT},
+      pay_channel = #{payChannel,jdbcType=VARCHAR},
+      pay_method = #{payMethod,jdbcType=VARCHAR},
+      site_id = #{siteId,jdbcType=VARCHAR},
+      site_uid = #{siteUid,jdbcType=VARCHAR},
+      operate_name = #{operateName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_update_time = #{lastUpdateTime,jdbcType=TIMESTAMP},
+      is_del = #{isDel,jdbcType=BOOLEAN}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
