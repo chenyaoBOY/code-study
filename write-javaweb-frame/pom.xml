@@ -10,6 +10,7 @@
     <modules>
         <module>customer-manage</module>
         <module>database-util</module>
+        <module>smart-frame</module>
     </modules>
     <packaging>pom</packaging>
 
