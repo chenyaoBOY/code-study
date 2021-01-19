@@ -11,7 +11,7 @@
 - 将带有controller和service注解的类全部通过反射实例化
 
 ### 3 依赖注入
-- IocParser
+- DIParser
 - 通过反射将带有inject注解的字段 注入对应的bean
 
 ### 4 路经映射

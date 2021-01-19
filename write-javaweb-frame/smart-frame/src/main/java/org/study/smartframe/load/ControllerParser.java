@@ -23,6 +23,9 @@ public class ControllerParser {
      */
     private static final Map<Request, RequestHandler> REQUEST_HANDLER_MAP = new ConcurrentHashMap<>();
 
+    /**
+     * 处理路径映射
+     */
     static {
         Set<Class<?>> controllerClasses = ClassParser.getControllerClasses();
         for (Class<?> controllerClass : controllerClasses) {

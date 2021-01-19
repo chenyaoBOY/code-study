@@ -17,7 +17,7 @@ public class FramWorkParser {
         Class<?>[] classes = {
                 ClassParser.class,
                 BeanParser.class,
-                IocParser.class,
+                DIParser.class,
                 ControllerParser.class
         };
         for (Class<?> c : classes) {

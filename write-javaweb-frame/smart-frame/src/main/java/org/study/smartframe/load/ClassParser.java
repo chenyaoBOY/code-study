@@ -19,6 +19,9 @@ public class ClassParser {
 
     private static final Set<Class<?>> CLASS_SET;
 
+    /**
+     * 加载指定目录下的class文件
+     */
     static {
         String appBasePackage = ConfigUtil.getAppBasePackage();
         CLASS_SET = ClassUtil.getClassFromPackage(appBasePackage);

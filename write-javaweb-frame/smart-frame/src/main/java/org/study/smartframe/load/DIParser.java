@@ -13,15 +13,18 @@ import java.util.Map;
  * @description
  */
 @Slf4j
-public final class IocParser {
+public final class DIParser {
 
 
+    /**
+     * 处理依赖注入
+     */
     static {
         Map<Class<?>, Object> beanMap = BeanParser.getBeanMap();
         if (beanMap == null || beanMap.size() == 0) {
             log.info("no beans was loaded");
-        }else{
-            int total=0;
+        } else {
+            int total = 0;
             for (Map.Entry<Class<?>, Object> entry : beanMap.entrySet()) {
                 Object bean = entry.getValue();
                 Field[] fields = bean.getClass().getDeclaredFields();
@@ -34,7 +37,7 @@ public final class IocParser {
                     }
                 }
             }
-            log.info("smart framework inject {} count",total);
+            log.info("smart framework inject {} count", total);
         }
     }
 

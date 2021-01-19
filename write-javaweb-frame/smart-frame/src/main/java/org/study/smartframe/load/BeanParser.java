@@ -20,6 +20,9 @@ public class BeanParser {
      */
     private static final Map<Class<?>, Object> BEAN_MAP = new ConcurrentHashMap<>();
 
+    /**
+     * bean的实例化
+     */
     static {
         Set<Class<?>> beanClasses = ClassParser.getBeanClasses();
         for (Class<?> beanClass : beanClasses) {
