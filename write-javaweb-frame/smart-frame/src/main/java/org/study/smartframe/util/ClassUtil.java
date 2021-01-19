@@ -37,7 +37,7 @@ public class ClassUtil {
     public static Class<?> loadClass(String classFullName, boolean isInitialized) {
         try {
             return Class.forName(classFullName, isInitialized, getClassLoader());
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             logger.error("load class is error:", e);
             throw new RuntimeException(e);
         }

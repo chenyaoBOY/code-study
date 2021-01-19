@@ -18,21 +18,24 @@ public final class IocParser {
 
     static {
         Map<Class<?>, Object> beanMap = BeanParser.getBeanMap();
-        if (beanMap == null || beanMap.size() == 0) throw new RuntimeException("no beans was loaded");
-        int total=0;
-        for (Map.Entry<Class<?>, Object> entry : beanMap.entrySet()) {
-            Object bean = entry.getValue();
-            Field[] fields = bean.getClass().getDeclaredFields();
-            for (Field field : fields) {
-                if (!field.isAnnotationPresent(Inject.class)) continue;
-                Object injectBean = beanMap.get(field.getType());
-                if (injectBean != null) {
-                    ReflectUtil.setField(field, bean, injectBean);
-                    total++;
+        if (beanMap == null || beanMap.size() == 0) {
+            log.info("no beans was loaded");
+        }else{
+            int total=0;
+            for (Map.Entry<Class<?>, Object> entry : beanMap.entrySet()) {
+                Object bean = entry.getValue();
+                Field[] fields = bean.getClass().getDeclaredFields();
+                for (Field field : fields) {
+                    if (!field.isAnnotationPresent(Inject.class)) continue;
+                    Object injectBean = beanMap.get(field.getType());
+                    if (injectBean != null) {
+                        ReflectUtil.setField(field, bean, injectBean);
+                        total++;
+                    }
                 }
             }
+            log.info("smart framework inject {} count",total);
         }
-        log.info("smart framework inject {} count",total);
     }
 
 }

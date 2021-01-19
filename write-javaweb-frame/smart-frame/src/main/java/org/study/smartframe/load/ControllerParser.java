@@ -30,7 +30,7 @@ public class ControllerParser {
             for (Method method : methods) {
                 if (!method.isAnnotationPresent(Action.class)) continue;
                 String mapping = method.getAnnotation(Action.class).value();
-                if (StringUtils.isNotEmpty(mapping) && mapping.matches("\\w+:/\\w*")) continue;
+                if (StringUtils.isEmpty(mapping) || !mapping.matches("\\w+:/\\w*")) continue;
                 String[] split = mapping.split(":");
                 if (split.length != 2) continue;
                 Request request = new Request(split[0], split[1]);
