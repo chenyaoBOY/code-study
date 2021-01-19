@@ -1,4 +1,4 @@
-package org.study.smartframe;
+package org.study.smartframe.entity;
 
 /**
  * @author chenyao

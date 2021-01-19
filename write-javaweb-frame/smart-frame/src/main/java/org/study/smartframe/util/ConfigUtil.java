@@ -1,6 +1,6 @@
 package org.study.smartframe.util;
 
-import org.study.smartframe.ConfigConstant;
+import org.study.smartframe.entity.ConfigConstant;
 
 import java.util.Properties;
 

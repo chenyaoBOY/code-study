@@ -1,7 +1,7 @@
-package org.study.smartframe;
+package org.study.smartframe.load;
 
 import lombok.extern.slf4j.Slf4j;
-import org.study.smartframe.util.ClassUtil;
+import org.study.smartframe.load.ClassParser;
 import org.study.smartframe.util.ReflectUtil;
 
 import java.util.Map;
@@ -14,14 +14,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * @description
  */
 @Slf4j
-public class BeanContainer {
+public class BeanParser {
     /**
      *  被@Controller和@Service注解的bean 都被存储在BeanMap
      */
     private static final Map<Class<?>, Object> BEAN_MAP = new ConcurrentHashMap<>();
 
     static {
-        Set<Class<?>> beanClasses = ClassUtil.getBeanClasses();
+        Set<Class<?>> beanClasses = ClassParser.getBeanClasses();
         for (Class<?> beanClass : beanClasses) {
             BEAN_MAP.put(beanClass, ReflectUtil.newInstance(beanClass));
         }

@@ -29,41 +29,6 @@ public class ClassUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(ClassUtil.class);
 
-    private static final Set<Class<?>> CLASS_SET;
-
-    static {
-        String appBasePackage = ConfigUtil.getAppBasePackage();
-        CLASS_SET = getClassFromPackage(appBasePackage);
-        logger.info("smart frame had load {} beans successful", CLASS_SET.size());
-    }
-
-    public static void main(String[] args) {
-        System.out.println(CLASS_SET.size());
-    }
-
-
-    public static Set<Class<?>> getAllClass() {
-        return CLASS_SET;
-    }
-
-    public static Set<Class<?>> getServiceClasses() {
-        return CLASS_SET.stream()
-                .filter(c -> c.isAnnotationPresent(Service.class))
-                .collect(Collectors.toSet());
-    }
-
-    public static Set<Class<?>> getControllerClasses() {
-        return CLASS_SET.stream()
-                .filter(c -> c.isAnnotationPresent(Controller.class))
-                .collect(Collectors.toSet());
-    }
-
-    public static Set<Class<?>> getBeanClasses() {
-        return CLASS_SET.stream()
-                .filter(c -> c.isAnnotationPresent(Controller.class) || c.isAnnotationPresent(Service.class))
-                .collect(Collectors.toSet());
-    }
-
     /**
      * @param classFullName
      * @param isInitialized 是否初始化类 指是否执行类的静态代码块
