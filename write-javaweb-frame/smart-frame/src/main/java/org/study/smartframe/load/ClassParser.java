@@ -22,7 +22,7 @@ public class ClassParser {
     static {
         String appBasePackage = ConfigUtil.getAppBasePackage();
         CLASS_SET = ClassUtil.getClassFromPackage(appBasePackage);
-        log.info("smart frame had load {} beans successful", CLASS_SET.size());
+        log.info("smart framework had load {} beans successful", CLASS_SET.size());
     }
 
     public static void main(String[] args) {

@@ -24,20 +24,21 @@ public class ReflectUtil {
         }
     }
 
-    public static Object invokeMethod(Object obj , Method method,Object...params){
+    public static Object invokeMethod(Object obj, Method method, Object... params) {
         try {
             return method.invoke(obj, params);
         } catch (Exception e) {
-            log.error("invoke method {} is failure",method.getName());
+            log.error("invoke method {} is failure", method.getName());
             throw new RuntimeException(e);
         }
     }
-    public static void setField(Object obj, Field field, Object value){
+
+    public static void setField(Field field, Object obj, Object value) {
         try {
             field.setAccessible(true);
-            field.set(obj,value);
+            field.set(obj, value);
         } catch (Exception e) {
-            log.error("setField is failure",e);
+            log.error("setField is failure", e);
             throw new RuntimeException(e);
         }
     }

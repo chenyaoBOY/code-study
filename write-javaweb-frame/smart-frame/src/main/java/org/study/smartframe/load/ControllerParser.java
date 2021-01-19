@@ -1,5 +1,6 @@
 package org.study.smartframe.load;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.study.smartframe.annotation.Action;
 import org.study.smartframe.entity.Request;
@@ -15,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @date 2021/1/19 10:25
  * @description
  */
+@Slf4j
 public class ControllerParser {
     /**
      * 将带有@Action注解的 请求与 类和方法 映射
@@ -37,9 +39,10 @@ public class ControllerParser {
                 REQUEST_HANDLER_MAP.put(request, new RequestHandler(controllerClass, method));
             }
         }
+        log.info("request mapping success. size:{}", REQUEST_HANDLER_MAP.size());
     }
 
-    public static RequestHandler getHandler(String requestMethod,String requestPath){
-        return REQUEST_HANDLER_MAP.get(new Request(requestMethod,requestPath));
+    public static RequestHandler getHandler(String requestMethod, String requestPath) {
+        return REQUEST_HANDLER_MAP.get(new Request(requestMethod, requestPath));
     }
 }
