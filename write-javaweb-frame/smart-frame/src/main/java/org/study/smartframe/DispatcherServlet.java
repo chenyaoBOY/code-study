@@ -107,8 +107,7 @@ public class DispatcherServlet extends HttpServlet {
         }
         String body = IOUtil.getInputStreamString(req.getInputStream(), StandardCharsets.UTF_8);
         if (StringUtils.isNotEmpty(body)) {
-            JSONObject object = JSON.parseObject(body);
-            map.putAll(object);
+            map.putAll(JSON.parseObject(body));
         }
         return new Param(map);
     }

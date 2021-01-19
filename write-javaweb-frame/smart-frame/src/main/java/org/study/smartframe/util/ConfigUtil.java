@@ -20,10 +20,10 @@ public class ConfigUtil {
         return PROPERTIES.getProperty(ConfigConstant.APP_BASE_PACKAGE,"org.study.smartframe");
     }
     public static String getAppAssertPath(){
-        return PROPERTIES.getProperty(ConfigConstant.APP_ASSERT_PATH,"/WEB-INF/view/");
+        return PROPERTIES.getProperty(ConfigConstant.APP_ASSERT_PATH,"/asset/");
     }
     public static String getAppJspPath(){
-        return PROPERTIES.getProperty(ConfigConstant.APP_JSP_PATH,"/asset/");
+        return PROPERTIES.getProperty(ConfigConstant.APP_JSP_PATH,"/WEB-INF/view/");
     }
 
 }
