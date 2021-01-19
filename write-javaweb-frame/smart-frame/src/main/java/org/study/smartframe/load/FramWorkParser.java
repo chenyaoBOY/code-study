@@ -7,7 +7,7 @@ import org.study.smartframe.util.ClassUtil;
  * @date 2021/1/19 11:08
  * @description
  */
-public class ClassLoad {
+public class FramWorkParser {
 
     public static void initSmartFrameWork(){
         /**

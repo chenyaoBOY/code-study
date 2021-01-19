@@ -11,6 +11,7 @@
         <module>customer-manage</module>
         <module>database-util</module>
         <module>smart-frame</module>
+        <module>smart-fram-test</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,4 +1,4 @@
-package org.study.smartframe.test;
+package org.study.frame;
 
 import org.study.smartframe.annotation.Service;
 

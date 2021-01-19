@@ -43,6 +43,9 @@ public class ControllerParser {
     }
 
     public static RequestHandler getHandler(String requestMethod, String requestPath) {
+        if(StringUtils.isNotEmpty(requestMethod)){
+            requestMethod = requestMethod.toLowerCase();
+        }
         return REQUEST_HANDLER_MAP.get(new Request(requestMethod, requestPath));
     }
 }
