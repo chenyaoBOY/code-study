@@ -1,6 +1,7 @@
 package org.study.smartframe;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.CharEncoding;
@@ -106,13 +107,8 @@ public class DispatcherServlet extends HttpServlet {
         }
         String body = IOUtil.getInputStreamString(req.getInputStream(), StandardCharsets.UTF_8);
         if (StringUtils.isNotEmpty(body)) {
-            String[] split = body.split("&");
-            for (String s : split) {
-                String[] keyValues = s.split("=");
-                if (keyValues.length == 2) {
-                    map.put(keyValues[0], keyValues[1]);
-                }
-            }
+            JSONObject object = JSON.parseObject(body);
+            map.putAll(object);
         }
         return new Param(map);
     }

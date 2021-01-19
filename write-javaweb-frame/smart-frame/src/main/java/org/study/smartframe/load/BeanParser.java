@@ -24,6 +24,7 @@ public class BeanParser {
         Set<Class<?>> beanClasses = ClassParser.getBeanClasses();
         for (Class<?> beanClass : beanClasses) {
             BEAN_MAP.put(beanClass, ReflectUtil.newInstance(beanClass));
+            log.debug("{} new instance success",beanClass.getSimpleName());
         }
         log.info("smart framework had load {} beans", BEAN_MAP.size());
     }

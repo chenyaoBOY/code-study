@@ -25,10 +25,7 @@ public class TestController {
 
     @Action("get:/get")
     public ModelData get(Param param) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", "chenyao");
-        map.put("age", 18);
-        return new ModelData(map);
+        return new ModelData(param);
     }
 
     @Action("get:/view")
@@ -36,6 +33,17 @@ public class TestController {
         List<Customer> list = DatabaseUtil.getList(Customer.class, "SELECT * FROM customer");
         return new View("customer-show.jsp").addModel("list", list);
     }
+    @Action("post:/view")
+    public View postView(Param param) {
+        List<Customer> list = DatabaseUtil.getList(Customer.class, "SELECT * FROM customer");
+        return new View("customer-show.jsp").addModel("list", list);
+    }
+
+    /**
+     * 可以重定向到  get /view
+     * @param param
+     * @return
+     */
     @Action("get:/redirect")
     public View redirect(Param param) {
         return new View("/view");

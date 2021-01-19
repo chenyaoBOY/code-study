@@ -37,9 +37,9 @@ public class ControllerParser {
                 if (REQUEST_HANDLER_MAP.containsKey(request))
                     throw new RuntimeException("@Action for requestMethod and requestPath only permit one exists");
                 REQUEST_HANDLER_MAP.put(request, new RequestHandler(controllerClass, method));
+                log.debug("method:{} url:{} mapping success",split[0], split[1]);
             }
         }
-        log.info("request mapping success. size:{}", REQUEST_HANDLER_MAP.size());
     }
 
     public static RequestHandler getHandler(String requestMethod, String requestPath) {
