@@ -47,7 +47,7 @@ public class DispatcherServlet extends HttpServlet {
         FramWorkParser.initSmartFrameWork();
         ServletContext servletContext = config.getServletContext();
         /**
-         * jsp路径映射
+         * 设置jsp路径映射
          */
         ServletRegistration jsp = servletContext.getServletRegistration("jsp");
         jsp.addMapping(ConfigUtil.getAppJspPath() + "*");
