@@ -16,4 +16,6 @@ public interface ConfigConstant {
     String APP_BASE_PACKAGE = "app.base_package";
     String APP_JSP_PATH = "app.jsp_path";
     String APP_ASSERT_PATH = "app.assert_path";
+
+    String APP_AOP_SWITCH = "app.aop_switch";
 }

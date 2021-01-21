@@ -23,6 +23,8 @@ public class CglibProxy implements MethodInterceptor {
         return CGLIB_PROXY;
     }
 
+    private Hello helloField;
+
     @Override
     public Object intercept(Object object, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
         before();

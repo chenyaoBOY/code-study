@@ -25,5 +25,8 @@ public class ConfigUtil {
     public static String getAppJspPath(){
         return PROPERTIES.getProperty(ConfigConstant.APP_JSP_PATH,"/WEB-INF/view/");
     }
+    public static String getAopSwitch(){
+        return PROPERTIES.getProperty(ConfigConstant.APP_AOP_SWITCH,"true");
+    }
 
 }

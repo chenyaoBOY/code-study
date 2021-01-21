@@ -3,6 +3,7 @@ package org.study.smartframe.load;
 import lombok.extern.slf4j.Slf4j;
 import org.study.smartframe.annotation.Controller;
 import org.study.smartframe.annotation.Service;
+import org.study.smartframe.proxy.ann.Aspect;
 import org.study.smartframe.util.ClassUtil;
 import org.study.smartframe.util.ConfigUtil;
 
@@ -49,10 +50,20 @@ public class ClassParser {
                 .collect(Collectors.toSet());
     }
 
+    public static Set<Class<?>> getAopClasses() {
+        return CLASS_SET.stream()
+                .filter(c -> c.isAnnotationPresent(Aspect.class))
+                .collect(Collectors.toSet());
+    }
+
     public static Set<Class<?>> getBeanClasses() {
         return CLASS_SET.stream()
-                .filter(c -> c.isAnnotationPresent(Controller.class) || c.isAnnotationPresent(Service.class))
+                .filter(c -> c.isAnnotationPresent(Controller.class) || c.isAnnotationPresent(Service.class) || isAnnotationApspect(c))
                 .collect(Collectors.toSet());
+    }
+
+    private static boolean isAnnotationApspect(Class<?> c) {
+        return ConfigUtil.getAopSwitch().equals("true") && c.isAnnotationPresent(Aspect.class);
     }
 
 }
