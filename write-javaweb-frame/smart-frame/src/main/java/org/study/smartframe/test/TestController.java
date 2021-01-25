@@ -34,5 +34,10 @@ public class TestController {
     public ModelData get(Param param) {
         return new ModelData(param);
     }
+    @Action("get:/bye")
+    public ModelData sayBye(Param param) {
+        testService.sayBye();
+        return new ModelData(param);
+    }
 
 }

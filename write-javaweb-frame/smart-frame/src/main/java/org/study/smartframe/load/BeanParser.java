@@ -41,7 +41,7 @@ public class BeanParser {
     }
 
     public static <T> T getBean(Class<T> t) {
-        if (!BEAN_MAP.containsKey(t)) throw new RuntimeException(t.getName() + " does");
+        if (!BEAN_MAP.containsKey(t)) throw new RuntimeException(t.getName() + " doesnt exist");
         return (T) BEAN_MAP.get(t);
     }
 }
