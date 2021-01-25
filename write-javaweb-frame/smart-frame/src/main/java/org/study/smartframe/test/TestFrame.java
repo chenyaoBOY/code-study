@@ -14,6 +14,10 @@ import java.util.HashMap;
 public class TestFrame {
 
     public static void main(String[] args) {
+       testDiWork();
+    }
+
+    public static void testDiWork(){
         FramWorkParser.initSmartFrameWork();
         TestController bean = BeanParser.getBean(TestController.class);
         bean.sayBye(new Param(new HashMap<>()));
