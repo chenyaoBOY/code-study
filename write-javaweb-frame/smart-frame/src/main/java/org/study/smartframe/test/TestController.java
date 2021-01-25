@@ -22,6 +22,14 @@ public class TestController {
     @Inject
     private TestService testService;
 
+    /**
+     * 被代理的类的字段注入 需要有set方法
+     * @param testService
+     */
+    public void setTestService(TestService testService) {
+        this.testService = testService;
+    }
+
     @Action("get:/get")
     public ModelData get(Param param) {
         return new ModelData(param);
