@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class BeanParser {
     /**
-     *  被@Controller和@Service注解的bean 都被存储在BeanMap
+     * 被@Controller和@Service注解的bean 都被存储在BeanMap
      */
     private static final Map<Class<?>, Object> BEAN_MAP = new ConcurrentHashMap<>();
 
@@ -27,13 +27,17 @@ public class BeanParser {
         Set<Class<?>> beanClasses = ClassParser.getBeanClasses();
         for (Class<?> beanClass : beanClasses) {
             BEAN_MAP.put(beanClass, ReflectUtil.newInstance(beanClass));
-            log.debug("{} new instance success",beanClass.getSimpleName());
+            log.debug("{} new instance success", beanClass.getSimpleName());
         }
         log.info("smart framework had load {} beans", BEAN_MAP.size());
     }
 
     public static Map<Class<?>, Object> getBeanMap() {
         return BEAN_MAP;
+    }
+
+    public static void setBean(Class<?> key, Object value) {
+        BEAN_MAP.put(key, value);
     }
 
     public static <T> T getBean(Class<T> t) {

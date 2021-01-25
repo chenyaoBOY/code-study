@@ -6,6 +6,8 @@ package org.study.frame.proxy;
  * @description
  */
 public class HelloImplNoInterface  {
+    @MyAnn
+    private Hello helloField;
     public void sayHello() {
         System.out.println("hello");
     }

@@ -7,6 +7,8 @@ import org.study.smartframe.proxy.ann.Aspect;
 import org.study.smartframe.util.ClassUtil;
 import org.study.smartframe.util.ConfigUtil;
 
+import java.lang.annotation.Annotation;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -44,26 +46,31 @@ public class ClassParser {
                 .collect(Collectors.toSet());
     }
 
-    public static Set<Class<?>> getControllerClasses() {
+    public static Set<Class<?>> getAnnotationClasses(Class<? extends Annotation> clazz) {
         return CLASS_SET.stream()
-                .filter(c -> c.isAnnotationPresent(Controller.class))
-                .collect(Collectors.toSet());
-    }
-
-    public static Set<Class<?>> getAopClasses() {
-        return CLASS_SET.stream()
-                .filter(c -> c.isAnnotationPresent(Aspect.class))
+                .filter(c -> c.isAnnotationPresent(clazz))
                 .collect(Collectors.toSet());
     }
 
     public static Set<Class<?>> getBeanClasses() {
         return CLASS_SET.stream()
-                .filter(c -> c.isAnnotationPresent(Controller.class) || c.isAnnotationPresent(Service.class) || isAnnotationApspect(c))
+                .filter(c -> c.isAnnotationPresent(Controller.class) || c.isAnnotationPresent(Service.class) || isAnnotationAspect(c))
                 .collect(Collectors.toSet());
     }
 
-    private static boolean isAnnotationApspect(Class<?> c) {
+    private static boolean isAnnotationAspect(Class<?> c) {
         return ConfigUtil.getAopSwitch().equals("true") && c.isAnnotationPresent(Aspect.class);
+    }
+
+    public static Set<Class<?>> getClassBySuper(Class<?> superClass){
+        Set<Class<?>> res = new HashSet<>();
+
+        for (Class<?> c : CLASS_SET) {
+            if(superClass.isAssignableFrom(c) && !superClass.equals(c)){
+                res.add(c);
+            }
+        }
+        return res;
     }
 
 }

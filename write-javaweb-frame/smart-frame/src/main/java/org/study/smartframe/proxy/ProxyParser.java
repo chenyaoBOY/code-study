@@ -29,6 +29,11 @@ public class ProxyParser {
     private static final Map<Class<? extends Annotation>, List<Proxy>> ANNOTATION_CLASS_PROXY_MAP = new HashMap<>();
 
     static {
+//        proxyByMyself();
+        init();
+    }
+
+    private static void proxyByMyself() {
         if (ConfigUtil.getAopSwitch().equals("true")) {
             Map<Class<?>, Object> beanMap = BeanParser.getBeanMap();
             for (Map.Entry<Class<?>, Object> entry : beanMap.entrySet()) {
@@ -58,6 +63,70 @@ public class ProxyParser {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Aspect注解 获取需要被代理的class
+     *
+     * @param aspect
+     * @return
+     */
+    private static Set<Class<?>> createTargetClassesSet(Aspect aspect) {
+        Set<Class<?>> res = new HashSet<>();
+        Class<? extends Annotation> targetAnn = aspect.value();
+        if (targetAnn != null && !targetAnn.equals(Aspect.class)) {
+            res.addAll(ClassParser.getAnnotationClasses(targetAnn));
+        }
+        return res;
+    }
+
+    /**
+     * 获取proxyCLass  和  targetClass之间的映射关系
+     *
+     * @return
+     */
+    private static Map<Class<?>/*proxyClass*/, Set<Class<?>>/*targetClass*/> createProxyMap() {
+        Map<Class<?>, Set<Class<?>>> map = new HashMap<>();
+        // 所有的proxy实现类
+        Set<Class<?>> proxyClassSet = ClassParser.getClassBySuper(Proxy.class);
+        for (Class<?> proxyClass : proxyClassSet) {
+            if (!proxyClass.isAnnotationPresent(Aspect.class)) continue;
+            Aspect aspect = proxyClass.getAnnotation(Aspect.class);
+            map.put(proxyClass, createTargetClassesSet(aspect));
+        }
+        return map;
+    }
+
+    private static Map<Class<?>, List<Proxy>> createTargetMap(Map<Class<?>/*proxyClass*/, Set<Class<?>>/*targetClass*/> proxyMap) throws IllegalAccessException, InstantiationException {
+        Map<Class<?>/*targetClass*/, List<Proxy>/*proxyClass*/> res = new HashMap<>();
+        for (Map.Entry<Class<?>, Set<Class<?>>> entry : proxyMap.entrySet()) {
+
+            Set<Class<?>> targetClasses = entry.getValue();
+            for (Class<?> targetClass : targetClasses) {
+                Proxy proxy = (Proxy) entry.getKey().newInstance();
+                if (res.containsKey(targetClass)) {
+                    res.get(targetClass).add(proxy);
+                } else {
+                    List<Proxy> list = new ArrayList<>();
+                    list.add(proxy);
+                    res.put(targetClass, list);
+                }
+            }
+        }
+        return res;
+    }
+
+    private static void init()  {
+        try {
+            Map<Class<?>, Set<Class<?>>> proxyMap = createProxyMap();
+            Map<Class<?>, List<Proxy>> targetMap = createTargetMap(proxyMap);
+            for (Map.Entry<Class<?>, List<Proxy>> entry : targetMap.entrySet()) {
+                Object proxy = ProxyManage.creatProxy(entry.getKey(), entry.getValue());
+                BeanParser.setBean(entry.getKey(),proxy);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

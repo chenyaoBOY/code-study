@@ -3,6 +3,7 @@ package org.study.smartframe.load;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.study.smartframe.annotation.Action;
+import org.study.smartframe.annotation.Controller;
 import org.study.smartframe.entity.Request;
 import org.study.smartframe.entity.RequestHandler;
 
@@ -27,7 +28,7 @@ public class ControllerParser {
      * 处理路径映射
      */
     static {
-        Set<Class<?>> controllerClasses = ClassParser.getControllerClasses();
+        Set<Class<?>> controllerClasses = ClassParser.getAnnotationClasses(Controller.class);
         for (Class<?> controllerClass : controllerClasses) {
             Method[] methods = controllerClass.getMethods();
             for (Method method : methods) {
