@@ -57,11 +57,12 @@ public final class DIParser {
             }
         } catch (Exception e) {
             log.error("CGlib代理 注入异常", e);
+            throw new RuntimeException(e);
         }
     }
 
-    private static String upperFirst(String s){
-        return "set"+s.substring(0,1).toUpperCase()+s.substring(1);
+    private static String upperFirst(String s) {
+        return "set" + s.substring(0, 1).toUpperCase() + s.substring(1);
     }
 
     private static void setField(Object bean, Class<?> clazz) {

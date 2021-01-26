@@ -1,13 +1,11 @@
 package org.study.smartframe.proxy;
 
-import org.apache.commons.collections4.CollectionUtils;
+import org.study.smartframe.annotation.Service;
 import org.study.smartframe.load.BeanParser;
 import org.study.smartframe.load.ClassParser;
 import org.study.smartframe.proxy.ann.Aspect;
-import org.study.smartframe.proxy.core.AbstractAspectProxy;
-import org.study.smartframe.proxy.core.Proxy;
-import org.study.smartframe.proxy.core.ProxyChain;
-import org.study.smartframe.proxy.core.ProxyManage;
+import org.study.smartframe.proxy.core.*;
+import org.study.smartframe.proxy.defalut.TransactionProxy;
 import org.study.smartframe.util.ConfigUtil;
 
 import java.lang.annotation.Annotation;
@@ -19,53 +17,17 @@ import java.util.*;
  * @description
  */
 public class ProxyParser {
-    /**
-     * Aspect注解上的value值 可能会针对同一个注解（例如：Controller） 写多个代理
-     * 1 将所有的bean中 带有Aspect注解的类找到 并判断该类是不是Proxy的实现类
-     * 2 然后将Aspect中的value值 也就是要增强哪种注解的class值 放入ANNOTATION_CLASS_PROXY_MAP
-     * 3 遍历所有bean 判断哪些bean是被ANNOTATION_CLASS_PROXY_MAP的key修饰
-     * 4 生成代理 并替换掉原来的bean实例
-     */
-    private static final Map<Class<? extends Annotation>, List<Proxy>> ANNOTATION_CLASS_PROXY_MAP = new HashMap<>();
 
     static {
-//        proxyByMyself();
+        /**
+         * 1 先找到 代理类（Proxy的实现类） 的class 与 目标class（被增强的类） 的关系  Map<Class<?>/proxyClass/, Set<Class<?>>/targetClass/>
+         *      1.1 比如Aspect注解增强，先获取所有的Proxy实现类 即代理类 过滤带有Aspect注解的 Set<Class>集合
+         *      1.2 再根据Aspect注解上的value值 找到目标class
+         * 2. 由于目标类可能会被多种 代理增强  所以要反转一下1中的map映射 找出 targetClass 和ProxyCLass之间的映射关系
+         * 3. 根据第二部的结果 就可以直接通过CGlib工具创建 targetClass的代理类
+         */
         init();
     }
-
-    private static void proxyByMyself() {
-        if (ConfigUtil.getAopSwitch().equals("true")) {
-            Map<Class<?>, Object> beanMap = BeanParser.getBeanMap();
-            for (Map.Entry<Class<?>, Object> entry : beanMap.entrySet()) {
-                Class<?> beanClass = entry.getKey();
-                if (!beanClass.isAnnotationPresent(Aspect.class)) continue;
-                Aspect aspect = beanClass.getAnnotation(Aspect.class);
-                Class<? extends Annotation> annClass = aspect.value();
-                if (entry.getValue() instanceof AbstractAspectProxy && !annClass.equals(Aspect.class)) {
-                    if (ANNOTATION_CLASS_PROXY_MAP.containsKey(annClass)) {
-                        ANNOTATION_CLASS_PROXY_MAP.get(annClass).add((Proxy) entry.getValue());
-                    } else {
-                        List<Proxy> list = new ArrayList<>();
-                        list.add((Proxy) entry.getValue());
-                        ANNOTATION_CLASS_PROXY_MAP.put(annClass, list);
-                    }
-                }
-            }
-
-            for (Map.Entry<Class<? extends Annotation>, List<Proxy>> entry : ANNOTATION_CLASS_PROXY_MAP.entrySet()) {
-                Class<? extends Annotation> annClass = entry.getKey();
-                Iterator<Map.Entry<Class<?>, Object>> iterator = beanMap.entrySet().iterator();
-                while (iterator.hasNext()) {
-                    Map.Entry<Class<?>, Object> beanEntry = iterator.next();
-                    Class<?> beanClass = beanEntry.getKey();
-                    if (beanClass.isAnnotationPresent(annClass)) {
-                        beanEntry.setValue(ProxyManage.creatProxy(beanClass, entry.getValue()));
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * Aspect注解 获取需要被代理的class
      *
@@ -88,6 +50,17 @@ public class ProxyParser {
      */
     private static Map<Class<?>/*proxyClass*/, Set<Class<?>>/*targetClass*/> createProxyMap() {
         Map<Class<?>, Set<Class<?>>> map = new HashMap<>();
+        addAspectProxy(map);
+        addTransactionProxy(map);
+        return map;
+    }
+
+    private static void addTransactionProxy(Map<Class<?>, Set<Class<?>>> map) {
+        Set<Class<?>> classSet = ClassParser.getAnnotationClasses(Service.class);
+        map.put(TransactionProxy.class,classSet);
+    }
+
+    private static void addAspectProxy(Map<Class<?>, Set<Class<?>>> map) {
         // 所有的proxy实现类
         Set<Class<?>> proxyClassSet = ClassParser.getClassBySuper(Proxy.class);
         for (Class<?> proxyClass : proxyClassSet) {
@@ -95,7 +68,6 @@ public class ProxyParser {
             Aspect aspect = proxyClass.getAnnotation(Aspect.class);
             map.put(proxyClass, createTargetClassesSet(aspect));
         }
-        return map;
     }
 
     private static Map<Class<?>, List<Proxy>> createTargetMap(Map<Class<?>/*proxyClass*/, Set<Class<?>>/*targetClass*/> proxyMap) throws IllegalAccessException, InstantiationException {

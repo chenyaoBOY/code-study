@@ -1,5 +1,6 @@
 package org.study.database;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.study.database.util.PropsUtil;
 
@@ -16,7 +17,9 @@ import org.apache.commons.dbutils.QueryRunner;
  * @date 2021/1/15 14:34
  * @description
  */
+@Slf4j
 public class DatabaseUtil {
+
     private static final String driver;
     private static final String url;
     private static final String username;
@@ -74,6 +77,35 @@ public class DatabaseUtil {
             } finally {
                 CONNECTION_THREAD_LOCAL.remove();
             }
+        }
+    }
+
+    public static void openTransaction(){
+        Connection connection = getConnection();
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException e) {
+            log.error("open transaction is failure",e);
+            throw new RuntimeException("open transaction is failure:"+e.getMessage());
+        }
+    }
+
+    public static void commitTransaction(){
+        Connection connection = getConnection();
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            log.error("commit transaction is failure",e);
+            throw new RuntimeException("commit transaction is failure:"+e.getMessage());
+        }
+    }
+    public static void rollbackTransaction(){
+        Connection connection = getConnection();
+        try {
+            connection.rollback();
+        } catch (SQLException e) {
+            log.error("rollback transaction is failure",e);
+            throw new RuntimeException("rollback transaction is failure:"+e.getMessage());
         }
     }
 

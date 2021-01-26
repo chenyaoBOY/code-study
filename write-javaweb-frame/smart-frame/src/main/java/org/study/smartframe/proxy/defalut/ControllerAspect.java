@@ -3,6 +3,7 @@ package org.study.smartframe.proxy.defalut;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.study.smartframe.annotation.Controller;
+import org.study.smartframe.annotation.Service;
 import org.study.smartframe.proxy.core.AbstractAspectProxy;
 import org.study.smartframe.proxy.ann.Aspect;
 import org.study.smartframe.proxy.core.ProxyChain;
@@ -13,7 +14,7 @@ import org.study.smartframe.proxy.core.ProxyChain;
  * @description
  */
 @Slf4j
-@Aspect(Controller.class)
+@Aspect(Service.class)
 public class ControllerAspect extends AbstractAspectProxy {
 
     private static ThreadLocal<Long> T_TIME = new ThreadLocal<>();
@@ -22,7 +23,7 @@ public class ControllerAspect extends AbstractAspectProxy {
     protected void before(ProxyChain proxyChain) {
         long begin = System.currentTimeMillis();
         T_TIME.set(begin);
-        log.debug("invoke:{}#{} param:{} time:{}", proxyChain.getTargetClass().getSimpleName()
+        log.debug("invoke begin. method:{}#{} param:{} time:{}", proxyChain.getTargetClass().getSimpleName()
                 , proxyChain.getTargetMethod().getName()
                 , JSON.toJSONString(proxyChain.getMethodParams())
                 , begin);
@@ -33,7 +34,7 @@ public class ControllerAspect extends AbstractAspectProxy {
         try {
             Long begin = T_TIME.get();
             long after = System.currentTimeMillis();
-            log.debug("invoke:{}#{} result:{} time:{} consumed:{}", proxyChain.getTargetClass().getSimpleName()
+            log.debug("invoke end. method:{}#{} result:{} time:{} consumed:{}", proxyChain.getTargetClass().getSimpleName()
                     , proxyChain.getTargetMethod().getName()
                     , JSON.toJSONString(result)
                     , after

@@ -7,6 +7,7 @@ import org.study.smartframe.annotation.Inject;
 import org.study.smartframe.entity.ModelData;
 import org.study.smartframe.entity.Param;
 import org.study.smartframe.entity.View;
+import org.study.smartframe.proxy.ann.Transaction;
 
 import java.util.HashMap;
 import java.util.List;
