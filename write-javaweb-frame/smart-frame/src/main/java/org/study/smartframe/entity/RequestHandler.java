@@ -11,10 +11,17 @@ import java.lang.reflect.Method;
  * @description
  */
 @Data
-@AllArgsConstructor
 public class RequestHandler {
 
     private Class<?> controllerClass;
 
     private Method actionMethod;
+
+    private Class<?>[] parameterTypes;
+
+    public RequestHandler(Class<?> controllerClass, Method actionMethod, Class<?>[] parameterTypes) {
+        this.controllerClass = controllerClass;
+        this.actionMethod = actionMethod;
+        this.parameterTypes = parameterTypes;
+    }
 }

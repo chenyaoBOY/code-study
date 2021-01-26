@@ -1,6 +1,10 @@
 package org.study.frame;
 
+import org.study.database.DatabaseUtil;
 import org.study.smartframe.annotation.Service;
+import org.study.smartframe.proxy.ann.Transaction;
+
+import java.util.List;
 
 /**
  * @author chenyao
@@ -9,4 +13,9 @@ import org.study.smartframe.annotation.Service;
  */
 @Service
 public class TestService {
+
+    @Transaction
+    public List<Customer> getList(){
+        return DatabaseUtil.getList(Customer.class, "SELECT * FROM customer");
+    }
 }

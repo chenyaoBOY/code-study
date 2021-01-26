@@ -70,8 +70,15 @@ public class DatabaseUtil {
 
     public static void closeConnection() {
         if (CONNECTION_THREAD_LOCAL.get() != null) {
+            Connection connection = CONNECTION_THREAD_LOCAL.get();
             try {
-                CONNECTION_THREAD_LOCAL.get().close();
+                if (!connection.getAutoCommit())
+                    return;
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            try {
+                connection.close();
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             } finally {
@@ -80,32 +87,33 @@ public class DatabaseUtil {
         }
     }
 
-    public static void openTransaction(){
+    public static void openTransaction() {
         Connection connection = getConnection();
         try {
             connection.setAutoCommit(false);
         } catch (SQLException e) {
-            log.error("open transaction is failure",e);
-            throw new RuntimeException("open transaction is failure:"+e.getMessage());
+            log.error("open transaction is failure", e);
+            throw new RuntimeException("open transaction is failure:" + e.getMessage());
         }
     }
 
-    public static void commitTransaction(){
+    public static void commitTransaction() {
         Connection connection = getConnection();
         try {
             connection.commit();
         } catch (SQLException e) {
-            log.error("commit transaction is failure",e);
-            throw new RuntimeException("commit transaction is failure:"+e.getMessage());
+            log.error("commit transaction is failure", e);
+            throw new RuntimeException("commit transaction is failure:" + e.getMessage());
         }
     }
-    public static void rollbackTransaction(){
+
+    public static void rollbackTransaction() {
         Connection connection = getConnection();
         try {
             connection.rollback();
         } catch (SQLException e) {
-            log.error("rollback transaction is failure",e);
-            throw new RuntimeException("rollback transaction is failure:"+e.getMessage());
+            log.error("rollback transaction is failure", e);
+            throw new RuntimeException("rollback transaction is failure:" + e.getMessage());
         }
     }
 

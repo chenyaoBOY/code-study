@@ -17,6 +17,10 @@ public class TestFrame {
         FramWorkParser.initSmartFrameWork();
     }
 
+    /**
+     * 测试前  DispatcherServlet 注释掉
+     * @param args
+     */
     public static void main(String[] args) {
 //       testDiWork();
         testTransaction();

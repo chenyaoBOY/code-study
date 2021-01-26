@@ -24,29 +24,32 @@ public class TestController {
     @Inject
     private TestService testService;
 
+    public void setTestService(TestService testService) {
+        this.testService = testService;
+    }
+
     @Action("get:/get")
     public ModelData get(Param param) {
         return new ModelData(param);
     }
 
     @Action("get:/view")
-    public View getView(Param param) {
-        List<Customer> list = DatabaseUtil.getList(Customer.class, "SELECT * FROM customer");
+    public View getView() {
+        List<Customer> list = testService.getList();
         return new View("customer-show.jsp").addModel("list", list);
     }
     @Action("post:/view")
-    public View postView(Param param) {
+    public View postView() {
         List<Customer> list = DatabaseUtil.getList(Customer.class, "SELECT * FROM customer");
         return new View("customer-show.jsp").addModel("list", list);
     }
 
     /**
      * 可以重定向到  get /view
-     * @param param
      * @return
      */
     @Action("get:/redirect")
-    public View redirect(Param param) {
+    public View redirect() {
         return new View("/view");
     }
 }
