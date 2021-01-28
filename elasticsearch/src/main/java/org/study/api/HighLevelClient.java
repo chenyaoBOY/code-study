@@ -1,4 +1,4 @@
-package org.study;
+package org.study.api;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,8 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class HighLevelClient {
 
-    static RestHighLevelClient CLIENT ;
+    static RestHighLevelClient CLIENT;
+
     static {
         init();
     }
@@ -55,7 +56,7 @@ public class HighLevelClient {
         SearchHit[] hitsArr = hits.getHits();
         for (SearchHit hit : hitsArr) {
             Map<String, Object> sourceAsMap = hit.getSourceAsMap();
-            log.info("message info:{}",JSON.toJSONString(sourceAsMap));
+            log.info("message info:{}", JSON.toJSONString(sourceAsMap));
 //            String documentTitle = (String) sourceAsMap.get("title");
 //            List<Object> users = (List<Object>) sourceAsMap.get("user");
 //            Map<String, Object> innerObject = (Map<String, Object>) sourceAsMap.get("innerObject");
@@ -83,13 +84,13 @@ public class HighLevelClient {
 
         GetResponse response = CLIENT.get(request, RequestOptions.DEFAULT);
 
-        log.info("response info:{}",response.getFields());
+        log.info("response info:{}", response.getFields());
 
 
         CLIENT.close();
     }
 
-    public static void init(){
-        CLIENT= new RestHighLevelClient( RestClient.builder(new HttpHost("localhost", 9201, "http")));
+    public static void init() {
+        CLIENT = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9201, "http")));
     }
 }
