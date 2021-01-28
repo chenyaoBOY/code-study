@@ -46,17 +46,16 @@ public class HighLevelClient {
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(QueryBuilders.matchAllQuery());
 
-        SearchRequest searchRequest = new SearchRequest("shein");
+        SearchRequest searchRequest = new SearchRequest();
         searchRequest.source(searchSourceBuilder);
 
         SearchResponse response = CLIENT.search(searchRequest, RequestOptions.DEFAULT);
-        log.info("SearchResponse info {}", JSON.toJSONString(response));
 
         SearchHits hits = response.getHits();
         SearchHit[] hitsArr = hits.getHits();
         for (SearchHit hit : hitsArr) {
-            String sourceAsString = hit.getSourceAsString();
             Map<String, Object> sourceAsMap = hit.getSourceAsMap();
+            log.info("message info:{}",JSON.toJSONString(sourceAsMap));
 //            String documentTitle = (String) sourceAsMap.get("title");
 //            List<Object> users = (List<Object>) sourceAsMap.get("user");
 //            Map<String, Object> innerObject = (Map<String, Object>) sourceAsMap.get("innerObject");
@@ -73,7 +72,7 @@ public class HighLevelClient {
     }
 
     private static void getApi() throws IOException {
-        GetRequest request = new GetRequest("shein", "1");
+        GetRequest request = new GetRequest("", "1");
         request.fetchSourceContext(FetchSourceContext.DO_NOT_FETCH_SOURCE);
 
         String[] includes = new String[]{"message", "*"};

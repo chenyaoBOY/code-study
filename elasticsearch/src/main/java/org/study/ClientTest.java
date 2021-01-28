@@ -52,7 +52,7 @@ public class ClientTest {
     }
 
     private static void requestAsync() {
-        client.performRequestAsync(new Request(GET, "/shein"), new ResponseListener() {
+        client.performRequestAsync(new Request(GET, "/"), new ResponseListener() {
             @Override
             public void onSuccess(Response response) {
                 log.info("async success. response info {}", JSON.toJSONString(response));
