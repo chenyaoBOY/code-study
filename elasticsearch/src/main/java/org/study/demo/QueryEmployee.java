@@ -14,6 +14,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.rest.RestStatus;
@@ -37,15 +38,26 @@ public class QueryEmployee {
 
 
     public static void main(String[] args) {
-        searchEmployee();
+        BoolQueryBuilder boolQueryBuilder = new BoolQueryBuilder();
+        boolQueryBuilder.filter(QueryBuilders.termQuery("id",1));
+        String dsl = clearBlank(boolQueryBuilder);
+
+        searchEmployee(new QueryInfo(dsl,INDEX_NAME));
     }
 
-    public static void searchEmployee() {
+    private static String clearBlank(BoolQueryBuilder boolQueryBuilder){
+        return boolQueryBuilder.toString()
+                .replaceAll("\n","")//换行
+                .replaceAll(" ","")
+                .replaceAll("\r\n","");//\r 回车
+    }
+
+    public static void searchEmployee(QueryInfo queryInfo) {
 
         SearchSourceBuilder builder = new SearchSourceBuilder();
-        builder.query(QueryBuilders.termQuery("id", 1));
+        builder.query(QueryBuilders.wrapperQuery(queryInfo.getQueryDsl()));
 
-        SearchRequest request = new SearchRequest(INDEX_NAME);
+        SearchRequest request = new SearchRequest(queryInfo.getIndexName());
         request.source(builder);
 
         SearchResponse response;
