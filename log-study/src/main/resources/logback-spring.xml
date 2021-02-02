@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property resource="logback.properties"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty scope="context" name="level" source="log.level" defaultValue="INFO"/>
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <springProperty scope="context" name="profiles" source="spring.profiles.active"/>
+    <springProperty scope="context" name="serverName" source="HOSTNAME"/>
+    <springProperty scope="context" name="logHome" source="log.file.home" defaultValue="E:\Java\file\"/>
+    <springProperty scope="context" name="devConsole" source="dev.console" defaultValue="false"/>
+    <springProperty scope="context" name="logDropEnable" source="log.drop.enable" defaultValue="true"/>
+    <springProperty scope="context" name="logQueueSize" source="log.queue.size" defaultValue="10000"/>
+    <!--自定义标签-->
+    <conversionRule conversionWord="logTag" converterClass="org.study.core.convert.LogTagConvert"/>
+    <conversionRule conversionWord="bizId" converterClass="org.study.core.convert.LogBizIdConvert"/>
+
+    <include resource="logback-appender.xml"/>
+
+
+    <!-- 根据 profile来区分日志输出级别 和输出方式 -->
+    <springProfile name="default">
+        <root level="${level}">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DISK_FILE_APPENDER"/>
+        </root>
+    </springProfile>
+
+</configuration>

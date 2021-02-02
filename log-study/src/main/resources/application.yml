@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: log-study
+
+log:
+  file:
+    home: E:\Java\file\
