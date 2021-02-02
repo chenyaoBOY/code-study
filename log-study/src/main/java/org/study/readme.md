@@ -1,6 +1,12 @@
 
 
+When a file in the classpath has one of the following names, 
+Spring Boot will automatically load it over the default configuration:
 
+logback-spring.xml
+logback.xml
+logback-spring.groovy
+logback.groovy
 
 ### 自定义日志输出log
 

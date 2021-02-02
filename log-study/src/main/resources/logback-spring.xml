@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<configuration
+        xmlns="http://ch.qos.logback/xml/ns/logback" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback
+        https://raw.githubusercontent.com/enricopulatzo/logback-XSD/master/src/main/xsd/logback.xsd">
     <property resource="logback.properties"/>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-    <springProperty scope="context" name="level" source="log.level" defaultValue="INFO"/>
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
     <springProperty scope="context" name="profiles" source="spring.profiles.active"/>
     <springProperty scope="context" name="serverName" source="HOSTNAME"/>
@@ -19,11 +21,17 @@
 
 
     <!-- 根据 profile来区分日志输出级别 和输出方式 -->
-    <springProfile name="default">
-        <root level="${level}">
-            <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="DISK_FILE_APPENDER"/>
-        </root>
-    </springProfile>
-
+    <!--    <springProfile name="default">-->
+    <!--        <root level="INFO">-->
+    <!--            <appender-ref ref="CONSOLE"/>-->
+    <!--            <appender-ref ref="DISK_FILE_APPENDER"/>-->
+    <!--        </root>-->
+    <!--    </springProfile>-->
+    <!--    <logger name="org.study" level="DEBUG">-->
+    <!--        <appender-ref ref="CONSOLE"/>-->
+    <!--    </logger>-->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="DISK_FILE_APPENDER"/>
+    </root>
 </configuration>
