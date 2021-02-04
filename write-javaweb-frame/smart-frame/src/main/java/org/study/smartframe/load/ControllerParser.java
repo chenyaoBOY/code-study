@@ -26,15 +26,16 @@ public class ControllerParser implements FrameInit {
     private static final Map<Request, RequestHandler> REQUEST_HANDLER_MAP = new ConcurrentHashMap<>();
 
     public static RequestHandler getHandler(String requestMethod, String requestPath) {
-        if(StringUtils.isNotEmpty(requestMethod)){
+        if (StringUtils.isNotEmpty(requestMethod)) {
             requestMethod = requestMethod.toLowerCase();
         }
         return REQUEST_HANDLER_MAP.get(new Request(requestMethod, requestPath));
     }
+
     @Override
     public void init() {
         /**
-         * 处理路径映射
+         * 处理路径映射  格式 get:/url
          */
         Set<Class<?>> controllerClasses = ClassParser.getAnnotationClasses(Controller.class);
         for (Class<?> controllerClass : controllerClasses) {
@@ -48,8 +49,8 @@ public class ControllerParser implements FrameInit {
                 Request request = new Request(split[0], split[1]);
                 if (REQUEST_HANDLER_MAP.containsKey(request))
                     throw new RuntimeException("@Action for requestMethod and requestPath only permit one exists");
-                REQUEST_HANDLER_MAP.put(request, new RequestHandler(controllerClass, method,method.getParameterTypes()));
-                log.debug("method:{} url:{} mapping success",split[0], split[1]);
+                REQUEST_HANDLER_MAP.put(request, new RequestHandler(controllerClass, method, method.getParameterTypes()));
+                log.debug("method:{} url:{} mapping success", split[0], split[1]);
             }
         }
     }
