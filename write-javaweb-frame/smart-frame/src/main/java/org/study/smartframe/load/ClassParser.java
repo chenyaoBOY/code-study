@@ -3,6 +3,8 @@ package org.study.smartframe.load;
 import lombok.extern.slf4j.Slf4j;
 import org.study.smartframe.annotation.Controller;
 import org.study.smartframe.annotation.Service;
+import org.study.smartframe.load.service.ClassParserInterface;
+import org.study.smartframe.load.service.FrameInit;
 import org.study.smartframe.proxy.ann.Aspect;
 import org.study.smartframe.util.ClassUtil;
 import org.study.smartframe.util.ConfigUtil;
@@ -18,25 +20,12 @@ import java.util.stream.Collectors;
  * @description
  */
 @Slf4j
-public class ClassParser {
+public class ClassParser implements ClassParserInterface {
 
-    private static final Set<Class<?>> CLASS_SET;
-
-    /**
-     * 加载指定目录下的class文件
-     */
-    static {
-        String appBasePackage = ConfigUtil.getAppBasePackage();
-        CLASS_SET = ClassUtil.getClassFromPackage(appBasePackage);
-        log.info("smart framework had load {} classes successful", CLASS_SET.size());
-    }
-
-    public static void main(String[] args) {
-        System.out.println(CLASS_SET.size());
-    }
+    private static  Set<Class<?>> CLASS_SET;
 
 
-    public static Set<Class<?>> getAllClass() {
+    public static Set<Class<?>> getClassSet() {
         return CLASS_SET;
     }
 
@@ -73,4 +62,13 @@ public class ClassParser {
         return res;
     }
 
+    @Override
+    public void init() {
+        /**
+         * 加载指定目录下的class文件
+         */
+        String appBasePackage = ConfigUtil.getAppBasePackage();
+        CLASS_SET = ClassUtil.getClassFromPackage(appBasePackage);
+        log.info("smart framework had load {} classes successful", CLASS_SET.size());
+    }
 }
