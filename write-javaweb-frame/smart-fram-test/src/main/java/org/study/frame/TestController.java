@@ -1,18 +1,15 @@
 package org.study.frame;
 
 import org.study.database.DatabaseUtil;
-import org.study.rpc.OrderInterface;
+import org.study.frame.rpc.OrderInterface;
 import org.study.smartframe.annotation.Action;
 import org.study.smartframe.annotation.Controller;
 import org.study.smartframe.annotation.Inject;
 import org.study.smartframe.entity.ModelData;
 import org.study.smartframe.entity.Param;
 import org.study.smartframe.entity.View;
-import org.study.smartframe.proxy.ann.Transaction;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author chenyao
@@ -22,6 +19,9 @@ import java.util.Map;
 @Controller
 public class TestController {
 
+    /**
+     * CGLIB代理的类 需要注入属性时 需要提供set方法
+     */
     @Inject
     private TestService testService;
 

@@ -1,6 +1,6 @@
 import org.junit.Test;
 import org.study.frame.proxy.HelloImpl;
-import org.study.rpc.OrderInterface;
+import org.study.frame.rpc.OrderInterface;
 import org.study.rpc.core.RpcInvocationHandler;
 
 import java.lang.reflect.Proxy;

@@ -5,6 +5,7 @@ import org.study.smartframe.annotation.Controller;
 import org.study.smartframe.proxy.ann.Aspect;
 import org.study.smartframe.proxy.core.AbstractAspectProxy;
 import org.study.smartframe.proxy.core.ProxyChain;
+import org.study.smartframe.proxy.defalut.ControllerAspect;
 
 /**
  * @author chenyao
@@ -13,15 +14,6 @@ import org.study.smartframe.proxy.core.ProxyChain;
  */
 @Aspect(Controller.class)
 @Slf4j
-public class ControllerProxy extends AbstractAspectProxy {
+public class ControllerProxy extends ControllerAspect {
 
-    @Override
-    protected void begin() {
-        log.debug("aop切面开始执行");
-    }
-
-    @Override
-    protected void end(ProxyChain proxyChain) {
-        log.debug("aop切面执行结束");
-    }
 }

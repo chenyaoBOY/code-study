@@ -1,4 +1,4 @@
-package org.study.rpc;
+package org.study.frame.rpc;
 
 import org.study.rpc.ann.Rest;
 import org.study.rpc.ann.RestRpc;
@@ -13,4 +13,5 @@ public interface OrderInterface {
 
     @Rest(url = "localhost://8080/sayHello")
     void sayHello();
+
 }

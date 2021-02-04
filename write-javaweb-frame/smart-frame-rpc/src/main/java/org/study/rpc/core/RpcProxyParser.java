@@ -32,6 +32,9 @@ public class RpcProxyParser implements ProxyParserInterface {
     public Object createProxy(Class<?> targetClass, List<Object> proxyList) {
         Object o = null;
         try {
+            /**
+             * 此处RpcInvocationHandler 可以共用一个  也可以为每个接口创建一个新的
+             */
             o = Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{targetClass}, new RpcInvocationHandler());
         } catch (Exception e) {
             log.error("动态代理出现异常！",e);
