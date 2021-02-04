@@ -17,4 +17,4 @@
 ### 4 路经映射
 - ControllerParser
 - 将带有action注解的controller类中的方法，进行解析
-- 将请求方法和请求路劲 与 controller类和方法method进行映射
+- 将请求方法和请求路径 与 controller类和方法method进行映射
