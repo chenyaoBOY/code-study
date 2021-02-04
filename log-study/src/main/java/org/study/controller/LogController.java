@@ -18,8 +18,6 @@ public class LogController {
     @GetMapping("/log")
     @LogAnn(logTag = "oms",bizID = "#param.getOrderSn()")
     public String log(@RequestBody Param param){
-        log.trace("oms business execute");
-        log.debug("oms business execute");
         log.info("oms business execute");
         log.warn("oms business execute");
         log.error("oms business execute");

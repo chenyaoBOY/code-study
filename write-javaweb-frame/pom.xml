@@ -12,6 +12,8 @@
         <module>database-util</module>
         <module>smart-frame</module>
         <module>smart-fram-test</module>
+        <module>smart-frame-rpc</module>
+        <module>smart-frame-common</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -52,7 +54,12 @@
             <version>1.18.12</version>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 

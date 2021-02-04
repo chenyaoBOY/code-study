@@ -5,3 +5,7 @@ spring:
 log:
   file:
     home: E:\Java\file\
+
+
+server:
+  port: 8081

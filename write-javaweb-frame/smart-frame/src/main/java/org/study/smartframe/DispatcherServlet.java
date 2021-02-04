@@ -36,7 +36,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init(ServletConfig config) throws ServletException {
-        FramWorkParser.initSmartFrameWork();
+        FrameWorkParser.initSmartFrameWork();
         ServletContext servletContext = config.getServletContext();
         /**
          * 设置jsp路径映射

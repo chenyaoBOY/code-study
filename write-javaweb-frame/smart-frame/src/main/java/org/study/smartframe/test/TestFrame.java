@@ -1,6 +1,6 @@
 package org.study.smartframe.test;
 
-import org.study.smartframe.FramWorkParser;
+import org.study.smartframe.FrameWorkParser;
 import org.study.smartframe.entity.Param;
 import org.study.smartframe.load.BeanParser;
 
@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class TestFrame {
 
     static {
-        FramWorkParser.initSmartFrameWork();
+        FrameWorkParser.initSmartFrameWork();
     }
 
     /**

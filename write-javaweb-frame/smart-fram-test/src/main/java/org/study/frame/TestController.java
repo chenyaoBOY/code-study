@@ -1,6 +1,7 @@
 package org.study.frame;
 
 import org.study.database.DatabaseUtil;
+import org.study.rpc.OrderInterface;
 import org.study.smartframe.annotation.Action;
 import org.study.smartframe.annotation.Controller;
 import org.study.smartframe.annotation.Inject;
@@ -24,6 +25,13 @@ public class TestController {
     @Inject
     private TestService testService;
 
+    @Inject
+    private OrderInterface orderInterface;
+
+    public void setOrderInterface(OrderInterface orderInterface) {
+        this.orderInterface = orderInterface;
+    }
+
     public void setTestService(TestService testService) {
         this.testService = testService;
     }
@@ -35,6 +43,7 @@ public class TestController {
 
     @Action("get:/view")
     public View getView() {
+        orderInterface.sayHello();
         List<Customer> list = testService.getList();
         return new View("customer-show.jsp").addModel("list", list);
     }

@@ -10,7 +10,7 @@
     </appender>
     <appender name="DISK_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${logHome}/{springAppName}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${logHome}/${springAppName}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <maxHistory>15</maxHistory>
             <maxFileSize>50MB</maxFileSize>
             <cleanHistoryOnStart>true</cleanHistoryOnStart>

@@ -6,6 +6,7 @@ import org.study.smartframe.annotation.Action;
 import org.study.smartframe.annotation.Controller;
 import org.study.smartframe.entity.Request;
 import org.study.smartframe.entity.RequestHandler;
+import org.study.smartframe.load.service.FrameInit;
 
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -18,16 +19,23 @@ import java.util.concurrent.ConcurrentHashMap;
  * @description
  */
 @Slf4j
-public class ControllerParser {
+public class ControllerParser implements FrameInit {
     /**
      * 将带有@Action注解的 请求与 类和方法 映射
      */
     private static final Map<Request, RequestHandler> REQUEST_HANDLER_MAP = new ConcurrentHashMap<>();
 
-    /**
-     * 处理路径映射
-     */
-    static {
+    public static RequestHandler getHandler(String requestMethod, String requestPath) {
+        if(StringUtils.isNotEmpty(requestMethod)){
+            requestMethod = requestMethod.toLowerCase();
+        }
+        return REQUEST_HANDLER_MAP.get(new Request(requestMethod, requestPath));
+    }
+    @Override
+    public void init() {
+        /**
+         * 处理路径映射
+         */
         Set<Class<?>> controllerClasses = ClassParser.getAnnotationClasses(Controller.class);
         for (Class<?> controllerClass : controllerClasses) {
             Method[] methods = controllerClass.getMethods();
@@ -44,12 +52,5 @@ public class ControllerParser {
                 log.debug("method:{} url:{} mapping success",split[0], split[1]);
             }
         }
-    }
-
-    public static RequestHandler getHandler(String requestMethod, String requestPath) {
-        if(StringUtils.isNotEmpty(requestMethod)){
-            requestMethod = requestMethod.toLowerCase();
-        }
-        return REQUEST_HANDLER_MAP.get(new Request(requestMethod, requestPath));
     }
 }
