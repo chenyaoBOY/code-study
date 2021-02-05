@@ -11,7 +11,7 @@ import org.study.rpc.ann.RestRpc;
 @RestRpc
 public interface OrderInterface {
 
-    @Rest(url = "localhost://8080/sayHello")
-    void sayHello();
+    @Rest(url = "http://localhost:8082/getCustomerList")
+    String sayHello();
 
 }

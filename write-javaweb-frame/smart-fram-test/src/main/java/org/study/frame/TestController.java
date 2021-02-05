@@ -1,5 +1,7 @@
 package org.study.frame;
 
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.study.database.DatabaseUtil;
 import org.study.frame.rpc.OrderInterface;
 import org.study.smartframe.annotation.Action;
@@ -17,6 +19,7 @@ import java.util.List;
  * @description
  */
 @Controller
+@Slf4j
 public class TestController {
 
     /**
@@ -40,11 +43,19 @@ public class TestController {
     public ModelData get(Param param) {
         return new ModelData(param);
     }
+    @Action("get:/getCustomerList")
+    public ModelData getCustomerList() {
+        List<Customer> list = testService.getList();
+        return new ModelData(list);
+    }
 
     @Action("get:/view")
     public View getView() {
-        orderInterface.sayHello();
-        List<Customer> list = testService.getList();
+        String sayHello = orderInterface.sayHello();
+        log.info("orderInterface#sayHello result:{}",sayHello);
+        ModelData modelData = JSON.parseObject(sayHello, ModelData.class);
+        String obj = modelData.getObj().toString();
+        List<Customer> list = JSON.parseArray(obj, Customer.class);
         return new View("customer-show.jsp").addModel("list", list);
     }
     @Action("post:/view")

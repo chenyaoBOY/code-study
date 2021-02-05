@@ -25,6 +25,6 @@ public class RpcInvocationHandler implements InvocationHandler {
         if(StringUtils.isEmpty(url)){
             throw new RuntimeException("@Rest: url is blank");
         }
-        return RestRequest.invokeUrl(url);
+        return RestRequest.invokeUrl(url,method,rest);
     }
 }

@@ -37,7 +37,8 @@ public class Listtest implements OrderInterface{
     }
 
     @Override
-    public void sayHello() {
+    public String sayHello() {
         System.out.println(123);
+        return "";
     }
 }
