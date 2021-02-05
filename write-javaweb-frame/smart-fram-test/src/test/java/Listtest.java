@@ -2,6 +2,7 @@ import org.junit.Test;
 import org.study.frame.proxy.HelloImpl;
 import org.study.frame.rpc.OrderInterface;
 import org.study.rpc.core.RpcInvocationHandler;
+import org.study.smartframe.entity.Param;
 
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
  * @date 2021/1/20 15:31
  * @description
  */
-public class Listtest implements OrderInterface{
+public class Listtest {
 
     @Test
     public  void test() {
@@ -36,9 +37,4 @@ public class Listtest implements OrderInterface{
         o.sayHello();
     }
 
-    @Override
-    public String sayHello() {
-        System.out.println(123);
-        return "";
-    }
 }

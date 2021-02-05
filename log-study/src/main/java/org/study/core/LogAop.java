@@ -23,6 +23,7 @@ import org.study.util.SpelParser;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -68,4 +69,19 @@ public class LogAop {
         String[] params = parameterNameDiscoverer.getParameterNames(method);
         return SpelParser.getSpelValue(params, point.getArgs(),spel);
     }
+
+    public static void main(String[] args) throws NoSuchMethodException {
+        LogAop logAop = new LogAop();
+        Method method = logAop.getClass().getMethod("methodParamGet", String.class, String.class, Integer.class);
+        Parameter[] parameters = method.getParameters();
+        for (Parameter parameter : parameters) {
+            System.out.println(parameter.getName());
+        }
+        String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
+        for (String name : parameterNames) {
+            System.out.println(name);
+        }
+    }
+
+    public void methodParamGet(String name,String address,Integer age){}
 }

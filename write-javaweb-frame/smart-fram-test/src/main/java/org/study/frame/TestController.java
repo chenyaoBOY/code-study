@@ -41,10 +41,17 @@ public class TestController {
 
     @Action("get:/get")
     public ModelData get(Param param) {
+        log.info("param info:{}",JSON.toJSONString(param));
         return new ModelData(param);
     }
     @Action("get:/getCustomerList")
     public ModelData getCustomerList() {
+        List<Customer> list = testService.getList();
+        return new ModelData(list);
+    }
+    @Action("post:/postCustomerList")
+    public ModelData postCustomerList(Param param) {
+        log.info("param info:{}",JSON.toJSONString(param));
         List<Customer> list = testService.getList();
         return new ModelData(list);
     }

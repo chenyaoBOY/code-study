@@ -1,7 +1,7 @@
 package org.study.frame.rpc;
 
-import org.study.rpc.ann.Rest;
-import org.study.rpc.ann.RestRpc;
+import org.study.rpc.ann.*;
+import org.study.smartframe.entity.Param;
 
 /**
  * @author chenyao
@@ -11,7 +11,16 @@ import org.study.rpc.ann.RestRpc;
 @RestRpc
 public interface OrderInterface {
 
-    @Rest(url = "http://localhost:8082/getCustomerList")
+    @GetMapping(url = "http://localhost:8082/getCustomerList")
     String sayHello();
+
+    @GetMapping(url = "http://localhost:8082/get")
+    String sayHello(@RequestParam Param param);
+
+    @PostMapping(url = "http://localhost:8082/postCustomerList")
+    String sayHello2(@RequestBody Param param);
+
+    @GetMapping(url = "http://localhost:8080/debugParam")
+    String requestSpringboot(@RequestParam String name, @RequestParam Integer age);
 
 }

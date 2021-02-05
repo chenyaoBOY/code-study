@@ -2,14 +2,15 @@ package org.study.rpc;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.study.rpc.ann.Rest;
+import org.study.rpc.ann.GetMapping;
+import org.study.rpc.ann.PostMapping;
+import org.study.rpc.request.RequestInfo;
+import org.study.rpc.request.RpcRequestInterface;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,25 +25,12 @@ import java.net.URI;
 @Slf4j
 public class RestRequest {
 
-    public static Object invokeUrl(String url, Method method, Rest rest){
-
-        log.info("request url:{}",url);
-
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpGet httpGet = new HttpGet();
-        httpGet.setURI(URI.create(url));
-        try {
-            HttpResponse httpResponse = client.execute(httpGet);
-            int statusCode = httpResponse.getStatusLine().getStatusCode();
-            if(statusCode == 200){
-                InputStream content = httpResponse.getEntity().getContent();
-                return IOUtils.toString(content);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static Object invokeUrl(RequestInfo requestInfo) {
+        RpcRequestInterface instance = RpcRequestInterface.getInstance(requestInfo);
+        if (instance == null) {
+            throw new RuntimeException("获取rpc实例异常！" + requestInfo.toString());
         }
-
-        return null;
+        return instance.doRequest(requestInfo);
     }
 
 }

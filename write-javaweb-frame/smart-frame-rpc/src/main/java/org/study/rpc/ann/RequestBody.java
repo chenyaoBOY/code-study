@@ -7,14 +7,10 @@ import java.lang.annotation.Target;
 
 /**
  * @author chenyao
- * @date 2021/2/3 16:41
+ * @date 2021/2/5 11:19
  * @description
  */
+@Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface Rest {
-    /**
-     * 请求的路径
-     */
-    String url();
+public @interface RequestBody {
 }
