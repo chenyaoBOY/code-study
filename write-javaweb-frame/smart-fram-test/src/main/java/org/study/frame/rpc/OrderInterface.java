@@ -23,4 +23,7 @@ public interface OrderInterface {
     @GetMapping(url = "http://localhost:8080/debugParam")
     String requestSpringboot(@RequestParam String name, @RequestParam Integer age);
 
+    @PostMapping(url = "http://localhost:8080/smart/post")
+    UserJapan smartPost(@RequestBody UserJapan user, @RequestBody Integer age);
+
 }

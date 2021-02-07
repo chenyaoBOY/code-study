@@ -1,6 +1,7 @@
 package org.study.frame;
 
 import org.study.frame.rpc.OrderInterface;
+import org.study.frame.rpc.UserJapan;
 import org.study.smartframe.annotation.Action;
 import org.study.smartframe.annotation.Controller;
 import org.study.smartframe.annotation.Inject;
@@ -36,6 +37,11 @@ public class OrderController {
     @Action("get:/orderRequestSpringboot")
     public ModelData requestSpringboot() {
         String s = orderInterface.requestSpringboot("chenyao",18);
+        return new ModelData(s);
+    }
+    @Action("post:/requestSpringbootPost")
+    public ModelData requestSpringbootPost() {
+        UserJapan s = orderInterface.smartPost(new UserJapan("苍井空"),18);
         return new ModelData(s);
     }
 
