@@ -1,4 +1,4 @@
-package org.study.rpc.request;
+package org.study.rpc.request.httpclient;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +7,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.study.rpc.ann.GetMapping;
 import org.study.rpc.ann.RequestParam;
+import org.study.rpc.request.entity.ParameterInfo;
 import org.study.rpc.util.ReflectUtil;
 
 import java.lang.annotation.Annotation;

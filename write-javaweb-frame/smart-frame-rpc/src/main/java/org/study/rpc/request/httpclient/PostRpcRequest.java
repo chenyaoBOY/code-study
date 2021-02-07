@@ -1,21 +1,18 @@
-package org.study.rpc.request;
+package org.study.rpc.request.httpclient;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.study.rpc.ann.GetMapping;
 import org.study.rpc.ann.PostMapping;
 import org.study.rpc.ann.RequestBody;
+import org.study.rpc.request.entity.ParameterInfo;
 import org.study.rpc.util.ReflectUtil;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author chenyao

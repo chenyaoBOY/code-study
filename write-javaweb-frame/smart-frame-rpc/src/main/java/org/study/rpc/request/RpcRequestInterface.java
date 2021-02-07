@@ -1,18 +1,12 @@
 package org.study.rpc.request;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.study.rpc.ann.GetMapping;
 import org.study.rpc.ann.PostMapping;
+import org.study.rpc.request.entity.RequestInfo;
+import org.study.rpc.request.httpclient.GetRpcRequest;
+import org.study.rpc.request.httpclient.PostRpcRequest;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.net.URI;
 
 /**
  * @author chenyao

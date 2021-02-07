@@ -1,11 +1,10 @@
 package org.study.rpc.core;
 
 
-import org.apache.commons.lang3.StringUtils;
 import org.study.rpc.RestRequest;
 import org.study.rpc.ann.GetMapping;
 import org.study.rpc.ann.PostMapping;
-import org.study.rpc.request.RequestInfo;
+import org.study.rpc.request.entity.RequestInfo;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

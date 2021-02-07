@@ -1,4 +1,4 @@
-package org.study.rpc.request;
+package org.study.rpc.request.entity;
 
 import lombok.Data;
 

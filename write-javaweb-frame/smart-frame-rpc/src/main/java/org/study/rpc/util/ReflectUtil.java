@@ -1,14 +1,11 @@
 package org.study.rpc.util;
 
-import com.sun.org.apache.regexp.internal.RE;
-import org.study.rpc.ann.GetMapping;
 import org.study.rpc.ann.RequestBody;
 import org.study.rpc.ann.RequestParam;
-import org.study.rpc.request.ParameterInfo;
+import org.study.rpc.request.entity.ParameterInfo;
 import org.study.smartframe.entity.Param;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
