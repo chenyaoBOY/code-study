@@ -23,6 +23,12 @@ public interface OrderInterface {
     @GetMapping(url = "http://localhost:8080/debugParam")
     String requestSpringboot(@RequestParam String name, @RequestParam Integer age);
 
+    /**
+     * 用一个@RequestBody就可以了 多的不会解析
+     * @param user
+     * @param age
+     * @return
+     */
     @PostMapping(url = "http://localhost:8080/smart/post")
     UserJapan smartPost(@RequestBody UserJapan user, @RequestBody Integer age);
 

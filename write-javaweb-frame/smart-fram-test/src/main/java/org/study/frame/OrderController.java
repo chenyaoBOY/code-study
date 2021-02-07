@@ -40,8 +40,8 @@ public class OrderController {
         return new ModelData(s);
     }
     @Action("post:/requestSpringbootPost")
-    public ModelData requestSpringbootPost() {
-        UserJapan s = orderInterface.smartPost(new UserJapan("苍井空"),18);
+    public ModelData requestSpringbootPost(Param param) {
+        UserJapan s = orderInterface.smartPost(new UserJapan((String) param.getMap().get("name")), (Integer) param.getMap().get("age"));
         return new ModelData(s);
     }
 
