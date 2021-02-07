@@ -23,7 +23,7 @@ import java.util.Map;
  * @description
  */
 @Slf4j
-public class PostRpcRequest extends AbstractRpcRequest {
+public class PostRpcRequest extends AbstractHttpClientRpcRequest {
     public PostRpcRequest(Method method, PostMapping getAnn, Object[] args, Object executeObj) {
         super(method, getAnn, args, executeObj);
     }

@@ -21,7 +21,7 @@ import java.util.List;
  * @description
  */
 @Slf4j
-public class GetRpcRequest extends AbstractRpcRequest {
+public class GetRpcRequest extends AbstractHttpClientRpcRequest {
 
     public GetRpcRequest(Method method, GetMapping getAnn, Object[] args, Object executeObj) {
         super(method, getAnn, args, executeObj);
