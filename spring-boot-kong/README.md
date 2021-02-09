@@ -65,12 +65,12 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 #### Step1: Add a service
 ```
-curl -X POST --url http://172.16.130.52:8001/services/ --data 'name=hello-api' --data 'url=http://172.16.130.52:8080'
+curl -X POST --url http://***.**.***.**:8001/services/ --data 'name=hello-api' --data 'url=http://***.**.***.**:8080'
 ```
 response：
 ```
 {
-	"host": "172.16.130.52",
+	"host": "***.**.***.**",
 	"id": "4fab4e6b-f5f1-4098-8aa4-e1d8317c8ad9",
 	"protocol": "http",
 	"read_timeout": 60000,
@@ -95,7 +95,7 @@ response：
 注意 hello-api是之前定义的service name。
 
 ```
-$ curl -X POST --url http://172.16.130.52:8001/services/hello-api/routes --data 'paths[]=/helloapi'
+$ curl -X POST --url http://***.**.***.**:8001/services/hello-api/routes --data 'paths[]=/helloapi'
 ```
 response：
 ```
@@ -133,7 +133,7 @@ response：
 
 ####  Call the API directly
 ```
-$ curl  -i 172.16.130.52:8080/hello
+$ curl  -i ***.**.***.**:8080/hello
 ```
 response:
 ```
@@ -149,7 +149,7 @@ Hello World from a Spring boot Java application
 
 #### Call the API behind kong
 ```
-$ curl -i -X GET --url http://172.16.130.52:8000/helloapi/hello
+$ curl -i -X GET --url http://***.**.***.**:8000/helloapi/hello
 ```
 response:
 ```
@@ -172,14 +172,14 @@ Hello World from a Spring boot Java application
 ```
 docker build -t dz/spring-boot-kong:v0.0.1 .
 
-docker run --name spring-boot-kong -d -p  172.16.130.52:8082:8080 dz/spring-boot-kong:v0.0.1
+docker run --name spring-boot-kong -d -p  ***.**.***.**:8082:8080 dz/spring-boot-kong:v0.0.1
 
 ```
 
 #### Step2 :
 之前service route等都已经配置，所以不需要再配置 ，直接调用
 ```
-curl -i -X GET --url http://172.16.130.52:8000/helloapi/hello
+curl -i -X GET --url http://***.**.***.**:8000/helloapi/hello
 ```
 
 response：
