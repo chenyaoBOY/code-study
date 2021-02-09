@@ -2,6 +2,7 @@ package org.study.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.study.controller.request.User;
 
 /**
  * @author dizhang

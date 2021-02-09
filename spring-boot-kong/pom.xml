@@ -17,6 +17,8 @@
     <properties>
         <java.version>1.8</java.version>
         <docker.image.prefix>spring-boot-kong</docker.image.prefix>
+        <bval.version>1.1.2</bval.version>
+        <javax.validation.validation-api.version>1.1.0.Final</javax.validation.validation-api.version>
     </properties>
 
     <build>
@@ -44,6 +46,22 @@
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.bval</groupId>
+            <artifactId>bval-jsr</artifactId>
+            <version>${bval.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${javax.validation.validation-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.bval</groupId>
+            <artifactId>bval-extras</artifactId>
+            <version>${bval.version}</version>
         </dependency>
     </dependencies>
 
