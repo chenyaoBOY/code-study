@@ -13,6 +13,9 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
+import static java.lang.System.exit;
+
+
 /**
  * @author dizhang
  * @date 2021-02-07
@@ -29,10 +32,16 @@ public class Application implements CommandLineRunner {
                 .configure()
                 .buildValidatorFactory();
         Validator validator = validatorFactory.getValidator();
-        User user = new User("zhangsan", "123@11111");
+        User user = new User("zhangsan", "123@11111", null, null);
 
         Set<ConstraintViolation<User>> violations = validator.validateProperty(user, "password");
-        System.out.println(!CollectionUtils.isEmpty(violations)?violations.iterator().next().getMessage():"pass");
+        System.out.println(!CollectionUtils.isEmpty(violations) ? violations.iterator().next().getMessage() : "violations1 pass");
+
+        Set<ConstraintViolation<User>> violations2 = validator.validate(user);
+        System.out.println(!CollectionUtils.isEmpty(violations2) ? violations2.iterator().next().getMessage() : "violations2 pass");
+
+
+        exit(0);
 
     }
 }
