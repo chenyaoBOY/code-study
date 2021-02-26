@@ -16,4 +16,9 @@ public class SPITest {
             System.out.println(proxy.getClass().getSimpleName());
         }
     }
+    @Test
+    public void test2(){
+
+        System.out.println(123);
+    }
 }

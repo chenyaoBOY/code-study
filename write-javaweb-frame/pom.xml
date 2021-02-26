@@ -14,6 +14,7 @@
         <module>smart-fram-test</module>
         <module>smart-frame-rpc</module>
         <module>smart-frame-common</module>
+        <module>socket-api</module>
     </modules>
     <packaging>pom</packaging>
 
